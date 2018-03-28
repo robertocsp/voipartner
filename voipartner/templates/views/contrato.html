@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Contrato no: {{ contrato.no_contrato }} - Voi Partner{% endblock %}
+{% block content %}
+
+{% include "../dados_usuario.html" %}
+
+
+{% if contrato %}
+    <h2>Contrato</h2>
+    <ul>
+        <li>No. Contrato: {{ contrato.no_contrato }}</li>
+        <li>Status: {{ contrato.get_status_display }}</li>
+        <li>Início vigência: {{ contrato.data_inicio_vigencia }}</li>
+        <li>Dia Aniversário do contrato: {{ contrato.dia_aniversario }}</li>
+        <li>Quantidade de cotas contratadas: {{ contrato.cotas_contratadas }}</li>
+        <li>Valor de cada cota: {{ contrato.valor_cota }}</li>
+        <li>Total investido: {{ contrato.valor_contratado|floatformat:2 }}</li>
+
+
+
+    </ul>
+{% else %}
+    <p>contrato não existente</p>
+{% endif %}
+
+{% if contrato.lucro_acumulado %}
+    <h2>Lucro</h2>
+    <ul>
+    {% for lucro in contrato.lucro_acumulado %}
+        <li>Data: {{ lucro.dt_lucro }}</li>
+        <li>Valor do lucro: {{ lucro.vl_lucro }}</li>
+        <li>Lucro acumulado ate o momento: {{ lucro.vl_lucro_acumulado }}</li>
+        <li>Valor acumulado ate o momento: {{ lucro.vl_acumulado }}</li>
+        <li>-------------------------</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>usuario não possui contratos.</p>
+{% endif %}
+{% endblock %}

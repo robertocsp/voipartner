@@ -1,0 +1,12 @@
+{% if usuario %}
+    <h2>Dados do usuario</h2>
+    <ul>
+        <li>Nome: {{ usuario.nome }}</li>
+        <li>Email: {{ usuario.email }}</li>
+        <li>Telefone: {{ usuario.telefone }}</li>
+        <li>Identificacao: {{ usuario.documento_identificacao }}</li>
+
+    </ul>
+{% else %}
+    <p>usuario não disponível</p>
+{% endif %}

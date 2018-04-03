@@ -46,7 +46,9 @@ class Contrato(models.Model):
 
     status_choices = (
         ('1', 'pagamento pendente'),
-        ('2', 'contrato em vigor'),
+        ('2', 'aguardando compensação'), #usuário fez upload do comprovante do pagamento.
+        ('3', 'aguardando assinatura do contrato'), #após confirmação do pagamento elaboramos o contrato e enviamos ASSINADO para o cliente assinar via Docusign
+        ('4', 'contrato em vigor'), #após assinatura do contrato, ele entra em vigor
 
     )
     status = models.CharField(

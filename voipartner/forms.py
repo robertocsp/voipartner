@@ -10,7 +10,7 @@ class UsuarioForm(ModelForm):
 
     def save(self, username, raw_password, *args, **kwargs):
         instance = super(UsuarioForm, self).save(commit=False)
-        instance.save(username,raw_password)
+        instance.save(username, raw_password)
         return instance
 
     class Meta:
@@ -35,3 +35,6 @@ class LoginForm(Form):
     password = CharField(widget=PasswordInput(), label='senha')
 
 
+class ContratoPendentePagamentoForm(Form):
+    cotas_contratadas = IntegerField()
+    comprovante_transferencia = FileField()

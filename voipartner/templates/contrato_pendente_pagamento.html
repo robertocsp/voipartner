@@ -1,0 +1,12 @@
+<form method="post" action="{{ contrato.id }}/pagamento-pendente" enctype="multipart/form-data">
+    {% csrf_token %}
+<ul>
+    <li>No. Contrato: {{ contrato.no_contrato }}</li>
+    <li>Valor de cada cota: {{ contrato.valor_cota }}</li>
+    <li>Total de cotas liberadas: {{ contrato.cotas_liberadas }}</li>
+    <li>Total de cotas adquiridas: <input type="text" name="cotas_contratadas" /></li>
+    <li>Upload comprovante de transferencia bancária: <input type="file" name="comprovante_transferencia" /> </li>
+</ul>
+    <input type="submit" value="Enviar"/>
+
+</form>

@@ -15,11 +15,11 @@
     <p>usuario não possui contratos em vigor</p>
 {% endif %}
 
-{% if contratos_pgto_pendente %}
-    <h2>Contratos com pagamento pendente</h2>
+{% if contratos_pendentes %}
+    <h2>Contratos pendentes</h2>
     <ul>
-    {% for contrato in contratos_pgto_pendente %}
-        <li><a href="contratos/{{ contrato.id }}">{{ contrato.no_contrato }}</a></li>
+    {% for contrato in contratos_pendentes %}
+        <li><a href="contratos/{{ contrato.id }}">{{ contrato.no_contrato }} - status: {{ contrato.get_status_display }}</a></li>
     {% endfor %}
     </ul>
 {% else %}

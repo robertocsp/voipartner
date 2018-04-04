@@ -34,7 +34,7 @@ class Contrato(models.Model):
     data_renovacao_automatica = models.DateField(blank=True, null=True)  # 6 meses após o início da vigência
     dia_aniversario = models.IntegerField(null=True, blank=True)
     taxa_lucro_prefixado = models.IntegerField(null=True)
-    # comprovante_deposito --> usuario fazer upload
+    comprovante_deposito = models.FileField(null=True, blank=True)
     # contrato_assinado --> apos a assinatura docusign, fazer upload para que usuário possa verificar a qualquer momento seu contrato assinado
     # bonus --> cada contrato poderá ter bonus de acordo com a evolução dos negócios.
     # detalhamento_resgate --> a ideia é poder ser um pdf padrão com o cálculo certinho, e termos do contrato

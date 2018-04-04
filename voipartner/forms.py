@@ -35,6 +35,24 @@ class LoginForm(Form):
     password = CharField(widget=PasswordInput(), label='senha')
 
 
-class ContratoPendentePagamentoForm(Form):
+class ContratoPendentePagamentoForm(ModelForm):
     cotas_contratadas = IntegerField()
-    comprovante_transferencia = FileField()
+    comprovante_deposito = FileField()
+
+
+    class Meta:
+        model = Contrato
+        fields = [
+            'cotas_contratadas',
+            'comprovante_deposito',
+
+        ]
+
+    def save(self, *args, **kwargs):
+        instance = super(ContratoPendentePagamentoForm, self).save(commit=False)
+        instance.status = '2'
+        instance.save()
+        return instance
+
+
+

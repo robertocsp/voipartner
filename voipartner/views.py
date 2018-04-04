@@ -86,11 +86,22 @@ def contrato(request, contrato_id):
 @login_required(login_url='/login')
 def contrato_pendente_pagamento(request, contrato_id):
     if request.method == 'POST':
-        form = ContratoPendentePagamentoForm(request.POST, request.FILES)
+
+        contrato = Contrato.objects.get(pk=contrato_id)
+
+        form = ContratoPendentePagamentoForm(request.POST, request.FILES, instance=contrato)
 
         if form.is_valid():
+
+            form.save()
+            #instance = form.save(commit=False)
+
+
             cotas_contratadas = form.cleaned_data.get('cotas_contratadas')  # o email é o username
-            
+            #contrato.cotas_contratadas = cotas_contratadas
+
+
+            #contrato.save()
             #form.save(username, raw_password)
         else:
             return HttpResponse("forulario nao foi valido")

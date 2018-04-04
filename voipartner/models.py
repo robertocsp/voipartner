@@ -35,7 +35,9 @@ class Contrato(models.Model):
     dia_aniversario = models.IntegerField(null=True, blank=True)
     taxa_lucro_prefixado = models.IntegerField(null=True)
     comprovante_deposito = models.FileField(null=True, blank=True)
-    # contrato_assinado --> apos a assinatura docusign, fazer upload para que usuário possa verificar a qualquer momento seu contrato assinado
+    link_contrato = models.TextField(null=True, blank=True)
+    contrato_assinado = models.FileField(null=True, blank=True)
+    log_mudanca_status = models.DateTimeField(blank=True, null=True)
     # bonus --> cada contrato poderá ter bonus de acordo com a evolução dos negócios.
     # detalhamento_resgate --> a ideia é poder ser um pdf padrão com o cálculo certinho, e termos do contrato
     cotas_liberadas = models.IntegerField(null=True)
@@ -98,3 +100,11 @@ class Contrato(models.Model):
                 lista_lucro.append(lucro_append)
 
         return lista_lucro
+
+    def save(self, *args, **kwargs):
+        #loga a mudança de status
+        contrato = Contrato.objects.get(pk=self.pk)
+        if contrato.status != self.status:
+            self.log_mudanca_status = datetime.datetime.now()
+
+        super(Contrato, self).save()

@@ -16,10 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from voipartner import views
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('media/ExtratoPDF_dezembro.pdf', views.download, name='download'),
+    #path('media/ExtratoPDF_Jan_St5KpeO.pdf', views.download, name='download'),
     path('', views.home_nao_logada, name='home_nao_logada'),
     path('homelogada', views.home_logada, name='home_logada'),
     path('cadastro', views.cadastro, name='cadastro'),
@@ -31,3 +35,8 @@ urlpatterns = [
     path('contratos/<int:contrato_id>/pagamento-pendente', views.contrato_pendente_pagamento, name='contrato-pendente-pagamento'),
 
 ]
+
+#Para produção podemos servir com o NGINX, porem o ideal é fazer algum acesso privado com controle de acesso
+if settings.DEBUG:
+    urlpatterns += staticfiles_urlpatterns()
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

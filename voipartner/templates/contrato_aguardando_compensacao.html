@@ -2,7 +2,8 @@
         <li>No. Contrato: {{ contrato.no_contrato }}</li>
         <li>Status: {{ contrato.get_status_display }}</li>
         <li>Valor de cada cota: {{ contrato.valor_cota }}</li>
-        <li>Total de cotas Contratadas: {{ contrato.cotas_contratadas }}</li>
+        <li>Total de cotas adquiridas: {{ contrato.cotas_contratadas }}</li>
         <li>Comprovante de depósito: <a href="{{ contrato.comprovante_deposito.url }}">{{ contrato.comprovante_deposito }}</a> </li>
+        <li>Valor total: {{ contrato.valor_contratado }}</li>
 
 </ul>

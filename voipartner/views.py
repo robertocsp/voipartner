@@ -6,6 +6,8 @@ from django.shortcuts import render, redirect
 from .forms import *
 
 from django.http import HttpResponse
+import os
+from django.conf import settings
 
 
 # Create your views here.
@@ -54,7 +56,17 @@ def my_logout(request):
     logout(request)
     return redirect('home_nao_logada')
 
-
+#PENDENTE.... TEM QUE FAZER ALGUM CONTROLE DE ACESSO PARA DOWNLOAD DOS ARQUIVOS
+@login_required(login_url='/login')
+def download(request, file_name):
+    file_path = settings.MEDIA_ROOT + '/' + file_name
+    file_wrapper = FileWrapper(file(file_path, 'rb'))
+    file_mimetype = mimetypes.guess_type(file_path)
+    response = HttpResponse(file_wrapper, content_type=file_mimetype)
+    response['X-Sendfile'] = file_path
+    response['Content-Length'] = os.stat(file_path).st_size
+    response['Content-Disposition'] = 'attachment; filename=%s/' % smart_str(file_name)
+    return response
 
 @login_required(login_url='/login')
 def contratos_usuario(request):

@@ -19,6 +19,7 @@ from voipartner import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    #path('media/ExtratoPDF_dezembro.pdf', views.download, name='download'),
     path('', views.home_nao_logada, name='home_nao_logada'),
     path('homelogada', views.home_logada, name='home_logada'),
     path('cadastro', views.cadastro, name='cadastro'),
@@ -27,6 +28,6 @@ urlpatterns = [
     path('logout', views.my_logout, name='my_logout'),
     path('contratos', views.contratos_usuario, name='contratos_usuario'),
     path('contratos/<int:contrato_id>', views.contrato, name='contrato'),
-    path('contratos/<int:contrato_id>/pagamento-pendente', views.contrato_pendente_pagamento, name='contrato-pagamento-pendente'),
+    path('contratos/<int:contrato_id>/pagamento-pendente', views.contrato_pendente_pagamento, name='contrato-pendente-pagamento'),
 
 ]

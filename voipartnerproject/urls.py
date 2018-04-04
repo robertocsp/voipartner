@@ -23,7 +23,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('media/ExtratoPDF_Jan_St5KpeO.pdf', views.download, name='download'),
+    path('media/<str:filename>', views.download, name='download'),
     path('', views.home_nao_logada, name='home_nao_logada'),
     path('homelogada', views.home_logada, name='home_logada'),
     path('cadastro', views.cadastro, name='cadastro'),
@@ -37,6 +37,8 @@ urlpatterns = [
 ]
 
 #Para produção podemos servir com o NGINX, porem o ideal é fazer algum acesso privado com controle de acesso
+'''
 if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+'''

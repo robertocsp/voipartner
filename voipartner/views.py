@@ -58,15 +58,16 @@ def my_logout(request):
 
 #PENDENTE.... TEM QUE FAZER ALGUM CONTROLE DE ACESSO PARA DOWNLOAD DOS ARQUIVOS
 @login_required(login_url='/login')
-def download(request, file_name):
-    file_path = settings.MEDIA_ROOT + '/' + file_name
-    file_wrapper = FileWrapper(file(file_path, 'rb'))
-    file_mimetype = mimetypes.guess_type(file_path)
-    response = HttpResponse(file_wrapper, content_type=file_mimetype)
-    response['X-Sendfile'] = file_path
-    response['Content-Length'] = os.stat(file_path).st_size
-    response['Content-Disposition'] = 'attachment; filename=%s/' % smart_str(file_name)
-    return response
+def download(request, filename):
+    file_path = os.path.join(settings.MEDIA_ROOT, filename)
+    if os.path.exists(file_path):
+        with open(file_path, 'rb') as fh:
+            response = HttpResponse(fh.read(), content_type="application/octet-stream")
+            response['Content-Disposition'] = 'inline; filename=' + os.path.basename(file_path)
+            return response
+    raise Http404
+    #return HttpResponse("chegou no download: " + filename)
+
 
 @login_required(login_url='/login')
 def contratos_usuario(request):

@@ -103,8 +103,9 @@ class Contrato(models.Model):
 
     def save(self, *args, **kwargs):
         #loga a mudança de status
-        contrato = Contrato.objects.get(pk=self.pk)
-        if contrato.status != self.status:
-            self.log_mudanca_status = datetime.datetime.now()
+        if self._state.adding is False:
+            contrato = Contrato.objects.get(pk=self.pk)
+            if contrato.status != self.status:
+                self.log_mudanca_status = datetime.datetime.now()
 
         super(Contrato, self).save()

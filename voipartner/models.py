@@ -39,7 +39,7 @@ class Contrato(models.Model):
     contrato_assinado = models.FileField(null=True, blank=True)
     log_mudanca_status = models.DateTimeField(blank=True, null=True)
     # bonus --> cada contrato poderá ter bonus de acordo com a evolução dos negócios.
-    # detalhamento_resgate --> a ideia é poder ser um pdf padrão com o cálculo certinho, e termos do contrato
+    detalhamento_resgate = models.FileField(null=True, blank=True)
     cotas_liberadas = models.IntegerField(null=True)
     cotas_contratadas = models.IntegerField(null=True)
     valor_cota = models.FloatField(null=True)

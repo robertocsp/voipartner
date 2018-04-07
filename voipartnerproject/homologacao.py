@@ -10,7 +10,7 @@ DATABASES = {
         'NAME': 'ebdb',
         'USER': 'voipartner',
         'PASSWORD': 'voipartner',
-        'HOST': 'aarscuu9ubkeqe.cwjb2a3zm7nz.us-east-1.rds.amazonaws.co',
+        'HOST': 'aarscuu9ubkeqe.cwjb2a3zm7nz.us-east-1.rds.amazonaws.com',
         'PORT': '5432',
     }
 }

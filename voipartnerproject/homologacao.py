@@ -7,10 +7,10 @@ ALLOWED_HOSTS = ['*']
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'voipartner',
+        'NAME': 'ebdb',
         'USER': 'voipartner',
         'PASSWORD': 'voipartner',
-        'HOST': 'voipartner.cwjb2a3zm7nz.us-east-1.rds.amazonaws.com',
+        'HOST': 'aarscuu9ubkeqe.cwjb2a3zm7nz.us-east-1.rds.amazonaws.co',
         'PORT': '5432',
     }
 }

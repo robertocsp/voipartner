@@ -44,6 +44,7 @@ class Contrato(models.Model):
     cotas_liberadas = models.IntegerField(null=True)
     cotas_contratadas = models.IntegerField(null=True)
     valor_cota = models.FloatField(null=True)
+    observacao = models.TextField(null=True, blank=True)
 
     usuario = models.ForeignKey('Usuario', on_delete=models.PROTECT)
 

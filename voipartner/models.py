@@ -16,6 +16,7 @@ class Usuario(models.Model):
     cidade = models.CharField(max_length=60, null=True)
     estado = models.CharField(max_length=2, null=True)
     cep = models.CharField(max_length=10, null=True)
+    upload_documento_identificacao = models.FileField(null=True, blank=True)
 
     def __str__(self):
         return self.nome

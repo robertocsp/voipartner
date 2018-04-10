@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 import datetime
+from django.core.mail import send_mail
 
 
 # Create your models here.
@@ -109,5 +110,18 @@ class Contrato(models.Model):
             contrato = Contrato.objects.get(pk=self.pk)
             if contrato.status != self.status:
                 self.log_mudanca_status = datetime.datetime.now()
+
+                #envio de email funcionando, agora é aplicar as regras para notificacao
+                '''
+                send_mail(
+                    'assunto teste envio email via django',
+                    'Mensagem teste',
+                    'no-reply@voipartner.com',
+                    ['80.pereira@gmail.com'],
+                    fail_silently=True,
+                )
+                '''
+
+
 
         super(Contrato, self).save()

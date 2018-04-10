@@ -115,3 +115,10 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'voipartner/static')
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+#Parametros SMTP
+EMAIL_HOST = 'email-smtp.us-east-1.amazonaws.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'AKIAJXOGL3CGO4CXDGRQ'
+EMAIL_HOST_PASSWORD = 'AlrvPsS02s0sUEsBtjuWDVLVmAVeC7EEpbLzm9zGpWfq'
+EMAIL_USE_TLS = True

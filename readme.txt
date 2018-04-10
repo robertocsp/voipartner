@@ -19,3 +19,10 @@ Se pycharm
     Editar as configurações de execução
     Adicionar a variável em Environment Variables.
 
+
+========
+
+Credenciais SMTP SES
+SMTP Username: AKIAJXOGL3CGO4CXDGRQ
+SMTP Password: AlrvPsS02s0sUEsBtjuWDVLVmAVeC7EEpbLzm9zGpWfq
+

@@ -18,14 +18,28 @@ class Usuario(models.Model):
     estado = models.CharField(max_length=2, null=True)
     cep = models.CharField(max_length=10, null=True)
     upload_documento_identificacao = models.FileField(null=True, blank=True)
+    valor_inicial_pretendido = models.FloatField(null=False, verbose_name='Valor de investimento inicial', default=0)
 
     def __str__(self):
         return self.nome
 
     def save(self, username, raw_password, *args, **kwargs):
-        user = User.objects.create_user(username=username, password=raw_password)
-        self.user = user
+        if self._state.adding is True:
+            user = User.objects.create_user(username=username, password=raw_password)
+            self.user = user
+
         super(Usuario, self).save()
+
+    def save(self):
+        super(Usuario, self).save()
+
+    def get_nome_by_user(user):
+        usuario = Usuario.objects.get(user=user)
+        return usuario.nome
+
+    def get_usuario_by_user(user):
+        usuario = Usuario.objects.get(user=user)
+        return usuario
 
 
 class Contrato(models.Model):
@@ -112,6 +126,10 @@ class Contrato(models.Model):
                 self.log_mudanca_status = datetime.datetime.now()
 
                 #envio de email funcionando, agora é aplicar as regras para notificacao
+
+
+                mensagem = "Prezado, o status do seu contrato foi alterado, entre no site e veja "
+
                 '''
                 send_mail(
                     'assunto teste envio email via django',
@@ -121,6 +139,8 @@ class Contrato(models.Model):
                     fail_silently=True,
                 )
                 '''
+        else:
+            mensagem = "Prezado, seu contrato foi liberado para "
 
 
 

@@ -7,17 +7,14 @@ from .models import *
 class UsuarioForm(ModelForm):
     password1 = CharField(widget=PasswordInput())
     password2 = CharField(widget=PasswordInput())
-
-    def save(self, username, raw_password, *args, **kwargs):
-        instance = super(UsuarioForm, self).save(commit=False)
-        instance.save(username, raw_password)
-        return instance
+    email_confirmacao = EmailField()
 
     class Meta:
         model = Usuario
         fields = [
             'nome',
             'email',
+            'email_confirmacao',
             'telefone',
             'documento_identificacao',
             'data_nascimento',
@@ -25,9 +22,15 @@ class UsuarioForm(ModelForm):
             'cidade',
             'estado',
             'cep',
+            'valor_inicial_pretendido',
             'password1',
             'password2',
         ]
+
+    def save(self, username, raw_password, *args, **kwargs):
+        instance = super(UsuarioForm, self).save(commit=False)
+        instance.save(username, raw_password)
+        return instance
 
 
 class LoginForm(Form):

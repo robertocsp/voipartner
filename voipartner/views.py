@@ -1,7 +1,7 @@
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from .forms import *
 
@@ -12,23 +12,29 @@ from django.conf import settings
 
 # Create your views here.
 
-def home_nao_logada(request):
-    return render(request, 'views/home_nao_logada.html')
-
-@login_required(login_url='/login')
-def home_logada(request):
-    return render(request, 'views/home_logada.html')
+def home(request):
+    return render(request, 'views/home.html')
 
 def cadastro(request):
     if request.method == 'POST':
-        form = UsuarioForm(request.POST)
+
+        if request.user.is_anonymous:
+            form = UsuarioForm(request.POST)
+        else:
+            instance = get_object_or_404(Usuario, id=Usuario.get_usuario_by_user(request.user).id)
+            form = UsuarioForm(request.POST or None, instance=instance)
+
         if form.is_valid():
             username = form.cleaned_data.get('email')  # o email é o username
             raw_password = form.cleaned_data.get('password1')
 
-            form.save(username,raw_password)
+            form.save(username, raw_password)
 
-            return redirect('home_logada')
+            return redirect('my_login')
+
+    elif request.user.is_anonymous is not True:
+        instance = get_object_or_404(Usuario, id=Usuario.get_usuario_by_user(request.user).id)
+        form = UsuarioForm(request.POST or None, instance=instance)
     else:
         form = UsuarioForm()
     return render(request, 'views/cadastro.html', {'form': form})
@@ -43,10 +49,11 @@ def my_login(request):
             user = authenticate(request, username=username, password=raw_password)
             if user is not None:
                 login(request, user)
-                return redirect('home_logada')
+                request.session['nome_usuario'] = Usuario.get_nome_by_user(user)
+                return redirect('home')
 
             else:
-                return redirect('home_nao_logada')
+                return redirect('home')
     else:
         form = LoginForm()
     return render(request, 'views/login.html', {'form': form})
@@ -54,7 +61,7 @@ def my_login(request):
 
 def my_logout(request):
     logout(request)
-    return redirect('home_nao_logada')
+    return redirect('home')
 
 #PENDENTE.... TEM QUE FAZER ALGUM CONTROLE DE ACESSO PARA DOWNLOAD DOS ARQUIVOS
 @login_required(login_url='/login')
@@ -132,7 +139,7 @@ def testeForm(request):
             # process the data in form.cleaned_data as required
             # ...
             # redirect to a new URL:
-            return redirect('home_logada')
+            return redirect('home')
 
         # if a GET (or any other method) we'll create a blank form
     else:

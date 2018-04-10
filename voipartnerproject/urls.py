@@ -24,10 +24,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('media/<str:filename>', views.download, name='download'),
-    path('', views.home_nao_logada, name='home_nao_logada'),
-    path('homelogada', views.home_logada, name='home_logada'),
+    path('', views.home, name='home'),
     path('cadastro', views.cadastro, name='cadastro'),
-    path('testeform', views.testeForm, name='testeForm'),
     path('login', views.my_login, name='my_login'),
     path('logout', views.my_logout, name='my_logout'),
     path('contratos', views.contratos_usuario, name='contratos_usuario'),

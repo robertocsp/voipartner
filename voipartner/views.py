@@ -8,6 +8,7 @@ from .forms import *
 from django.http import HttpResponse
 import os
 from django.conf import settings
+from django.contrib import messages
 
 
 # Create your views here.
@@ -25,8 +26,19 @@ def cadastro(request):
             form = UsuarioForm(request.POST or None, instance=instance)
 
         if form.is_valid():
+            #Valida se a data de nascimento é maior que o dia de hoje
+            data_nascimento = form.cleaned_data.get('data_nascimento')
+            if data_nascimento > datetime.datetime.now().date():
+                messages.error(request, "Data de nascimento maior que o dia de hoje, usuário não nasceu")
+                return render(request, 'views/cadastro.html', {'form': form})
+
             username = form.cleaned_data.get('email')  # o email é o username
             raw_password = form.cleaned_data.get('password1')
+
+            # Valida se email já existe
+            if Usuario.objects.get(email=username):
+                messages.error(request, "Email já cadastrado")
+                return render(request, 'views/cadastro.html', {'form': form})
 
             form.save(username, raw_password)
 

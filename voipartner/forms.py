@@ -2,6 +2,7 @@ from django.forms import *
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import *
+from django.core.exceptions import ValidationError
 
 
 class UsuarioForm(ModelForm):
@@ -32,6 +33,13 @@ class UsuarioForm(ModelForm):
         instance.save(username, raw_password)
         return instance
 
+    '''
+    def is_valid(self):
+        instance = super(UsuarioForm, self).save(commit=False)
+        if instance.data_nascimento > datetime.datetime.now().date():
+            raise ValidationError(('Data de nascimento maior que hoje, usuário não nasceu'), code='nao_nasceu')
+        return True
+    '''
 
 class LoginForm(Form):
     username = CharField(max_length=100, label='email')

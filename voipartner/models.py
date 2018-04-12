@@ -8,8 +8,8 @@ from django.core.mail import send_mail
 
 class Usuario(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, blank=True)
-    nome = models.CharField(max_length=100)
-    email = models.EmailField(max_length=100, null=True)
+    nome = models.CharField(max_length=100, null=False)
+    email = models.EmailField(max_length=100, null=False)
     telefone = models.CharField(max_length=30, null=True)
     documento_identificacao = models.CharField(max_length=60, null=True)
     data_nascimento = models.DateField(null=True, blank=True)
@@ -23,15 +23,16 @@ class Usuario(models.Model):
     def __str__(self):
         return self.nome
 
+
+
     def save(self, username, raw_password, *args, **kwargs):
+
         if self._state.adding is True:
             user = User.objects.create_user(username=username, password=raw_password)
             self.user = user
 
-        super(Usuario, self).save()
+        super(Usuario, self).save(*args, **kwargs)
 
-    def save(self):
-        super(Usuario, self).save()
 
     def get_nome_by_user(user):
         usuario = Usuario.objects.get(user=user)
@@ -40,7 +41,6 @@ class Usuario(models.Model):
     def get_usuario_by_user(user):
         usuario = Usuario.objects.get(user=user)
         return usuario
-
 
 class Contrato(models.Model):
     no_contrato = models.CharField(max_length=10)

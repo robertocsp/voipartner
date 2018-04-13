@@ -27,6 +27,7 @@ def cadastro(request):
 
         if form.is_valid():
             #Valida se a data de nascimento é maior que o dia de hoje
+
             data_nascimento = form.cleaned_data.get('data_nascimento')
             if data_nascimento > datetime.datetime.now().date():
                 messages.error(request, "Data de nascimento maior que o dia de hoje, usuário não nasceu")
@@ -35,10 +36,13 @@ def cadastro(request):
             username = form.cleaned_data.get('email')  # o email é o username
             raw_password = form.cleaned_data.get('password1')
 
-            # Valida se email já existe
+            '''
+            # Valida se email já existe - Essa função tem ir para o form, para testar o estado.
+            
             if Usuario.objects.get(email=username):
                 messages.error(request, "Email já cadastrado")
                 return render(request, 'views/cadastro.html', {'form': form})
+            '''
 
             form.save(username, raw_password)
 

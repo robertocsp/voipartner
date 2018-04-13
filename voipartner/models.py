@@ -23,17 +23,6 @@ class Usuario(models.Model):
     def __str__(self):
         return self.nome
 
-
-
-    def save(self, username, raw_password, *args, **kwargs):
-
-        if self._state.adding is True:
-            user = User.objects.create_user(username=username, password=raw_password)
-            self.user = user
-
-        super(Usuario, self).save(*args, **kwargs)
-
-
     def get_nome_by_user(user):
         usuario = Usuario.objects.get(user=user)
         return usuario.nome

@@ -28,9 +28,26 @@ class UsuarioForm(ModelForm):
             'password2',
         ]
 
+    def clean_email(self):
+        field = self.cleaned_data['email']
+        insert = self.instance.pk == None
+        usuario_existente = Usuario.objects.get(email=field) == None
+
+        if insert and usuario_existente:
+            raise forms.ValidationError('Usuario existente - email: ' + field)
+        else:
+            pass
+        return field
+
     def save(self, username, raw_password, *args, **kwargs):
         instance = super(UsuarioForm, self).save(commit=False)
-        instance.save(username, raw_password)
+
+        if self.instance.pk == None:
+            user = User.objects.create_user(username=username, password=raw_password)
+            instance.user = user
+
+
+        instance.save()
         return instance
 
     '''

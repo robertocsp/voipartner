@@ -12,5 +12,5 @@ class UsuarioModelTests(TestCase):
         '''
         data_futura = datetime.datetime.now().date() + datetime.timedelta(days=1)
         usuario = Usuario(nome='teste criacao usuario', email='testecriausu@teste.com', data_nascimento=data_futura)
-        usuario.save('testeautomatizado', '123')
-        self.assertLess(usuario.data_nascimento, datetime.datetime.now())
+        usuario.save()
+        self.assertLess(usuario.data_nascimento, datetime.datetime.now().date())

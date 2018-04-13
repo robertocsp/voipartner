@@ -28,6 +28,7 @@ class UsuarioForm(ModelForm):
             'password2',
         ]
 
+    ''' Ajustar a validação por campo
     def clean_email(self):
         field = self.cleaned_data['email']
         insert = self.instance.pk == None
@@ -38,6 +39,7 @@ class UsuarioForm(ModelForm):
         else:
             pass
         return field
+    '''
 
     def save(self, username, raw_password, *args, **kwargs):
         instance = super(UsuarioForm, self).save(commit=False)

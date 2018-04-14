@@ -18,7 +18,7 @@ class Usuario(models.Model):
     estado = models.CharField(max_length=2, null=True)
     cep = models.CharField(max_length=10, null=True)
     upload_documento_identificacao = models.FileField(null=True, blank=True)
-    valor_inicial_pretendido = models.FloatField(null=False, verbose_name='Valor de investimento inicial', default=0)
+    valor_inicial_pretendido = models.FloatField(null=False, verbose_name='Pretenção para inestimento inicial', default=0)
 
     def __str__(self):
         return self.nome
@@ -49,6 +49,7 @@ class Contrato(models.Model):
     cotas_contratadas = models.IntegerField(null=True)
     valor_cota = models.FloatField(null=True)
     observacao = models.TextField(null=True, blank=True)
+    percentual_lucro_mensal = models.FloatField(default=0.05)
 
     usuario = models.ForeignKey('Usuario', on_delete=models.PROTECT)
 
@@ -72,7 +73,7 @@ class Contrato(models.Model):
         # if self.cotas_contratadas is not None & self.valor_cota is not None:
         return self.cotas_contratadas * self.valor_cota
 
-    def lucro_acumulado(self):
+    def lista_lucro_por_mes(self):
 
         class Lucro:
             dt_lucro = None
@@ -91,9 +92,9 @@ class Contrato(models.Model):
 
         for i in range(delta.days):
             dia_no_range = datetime.date.fromordinal(self.data_inicio_vigencia.toordinal() + i)
-            if dia_no_range.day == self.dia_aniversario & i != 0:
+            if dia_no_range.day is self.dia_aniversario and i != 0:
                 lucro.dt_lucro = dia_no_range
-                lucro.vl_lucro = lucro.vl_acumulado * 0.05
+                lucro.vl_lucro = lucro.vl_acumulado * self.percentual_lucro_mensal
                 lucro.vl_lucro_acumulado = lucro.vl_lucro_acumulado + lucro.vl_lucro
                 lucro.vl_acumulado = lucro.vl_acumulado + lucro.vl_lucro
 
@@ -107,29 +108,89 @@ class Contrato(models.Model):
 
         return lista_lucro
 
+    def valor_acumulado(self):
+
+        vl_acumulado = self.valor_contratado()
+
+        hoje = datetime.date.today()
+        delta = hoje - self.data_inicio_vigencia
+
+        for i in range(delta.days):
+            dia_no_range = datetime.date.fromordinal(self.data_inicio_vigencia.toordinal() + i)
+            if dia_no_range.day is self.dia_aniversario and i != 0:
+                lucro = vl_acumulado * self.percentual_lucro_mensal
+                vl_acumulado = vl_acumulado + lucro
+
+        return vl_acumulado
+
+    def lucro_acumulado(self):
+
+        vl_acumulado = self.valor_contratado()
+        lucro_acumulado = 0
+
+        hoje = datetime.date.today()
+        delta = hoje - self.data_inicio_vigencia
+
+        for i in range(delta.days):
+            dia_no_range = datetime.date.fromordinal(self.data_inicio_vigencia.toordinal() + i)
+            if dia_no_range.day is self.dia_aniversario and i != 0:
+                lucro = vl_acumulado * self.percentual_lucro_mensal
+                vl_acumulado = vl_acumulado + lucro
+                lucro_acumulado = lucro_acumulado + lucro
+
+        return lucro_acumulado
+
     def save(self, *args, **kwargs):
         #loga a mudança de status
         if self._state.adding is False:
             contrato = Contrato.objects.get(pk=self.pk)
+            assunto = ""
+            mensagem = ""
+            destinatarios = []
             if contrato.status != self.status:
                 self.log_mudanca_status = datetime.datetime.now()
 
                 #envio de email funcionando, agora é aplicar as regras para notificacao
 
+                if self.status is '2':
+                    assunto = "Contrato aguardando compensação"
+                    mensagem = "Prezado, você fez o upload do comprovante de depósito, estamos aguardando a compensação, assim que confirmada você será notificado. "
+                    destinatarios = ['admin@voipartner.com', self.usuario.email]
 
-                mensagem = "Prezado, o status do seu contrato foi alterado, entre no site e veja "
+                elif self.status is '3':
+                    assunto = "Comprensação confirmada - Aguardando assinatura do contrato"
+                    mensagem = "Prezado, o pagamento foi confirmado e seu contrato já está disponível para ser assinado eletronicamente. Clique aqui para acessar o nosso portal para acessar o seu contrato. Assim que confirmada a assinatura do seu contrato, você será notificado e seu contrato entrará em vigor"
+                    destinatarios = [self.usuario.email]
 
-                '''
+                elif self.status is '4':
+                    assunto = "Assinatura confirmada, seu contrato está em vigor"
+                    mensagem = "Prezado, parabéns, seu contrato está ativo clique aqui e acompanhe a sua evolução."
+                    destinatarios = [self.usuario.email]
+
+
                 send_mail(
-                    'assunto teste envio email via django',
-                    'Mensagem teste',
+                    assunto,
+                    mensagem,
                     'no-reply@voipartner.com',
-                    ['80.pereira@gmail.com'],
+                    destinatarios,
                     fail_silently=True,
                 )
-                '''
+
+
+
         else:
-            mensagem = "Prezado, seu contrato foi liberado para "
+            assunto = "Seu contrato foi liberado"
+            mensagem = "Prezado, seu contrato foi liberado e está com o status pendente de pagamento. Agora você deve realizar os seguintes passos: 1) entrar em www.voipartner.com/contratos, selecionar o contrato:  " + self.no_contrato + "e verificar quantas cotas foram liberadas para contratação; 2) realizar a transferencia para a conta da voi Partner: Dados bancarios; 3) Informar no site voipartner.com quantas cotas você adquiriu e fazer o upload do comprovante de transferencia e upload do seu documento de identificação; Assim que o valor for confirmado você receberá uma notificação por email"
+            destinatarios = [self.usuario.email]
+
+            send_mail(
+                assunto,
+                mensagem,
+                'no-reply@voipartner.com',
+                destinatarios,
+                fail_silently=True,
+            )
+
 
 
 

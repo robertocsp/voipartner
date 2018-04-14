@@ -68,6 +68,7 @@ class LoginForm(Form):
 class ContratoPendentePagamentoForm(ModelForm):
     cotas_contratadas = IntegerField()
     comprovante_deposito = FileField()
+    upload_documento_identificacao = FileField()
 
 
     class Meta:
@@ -82,6 +83,12 @@ class ContratoPendentePagamentoForm(ModelForm):
         instance = super(ContratoPendentePagamentoForm, self).save(commit=False)
         instance.status = '2'
         instance.save()
+
+        #atualiza o usuario com o documento de identificacao
+        usuario = instance.usuario
+        usuario.upload_documento_identificacao = self.cleaned_data['upload_documento_identificacao']
+        usuario.save()
+
         return instance
 
 

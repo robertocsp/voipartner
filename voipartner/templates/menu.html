@@ -3,16 +3,16 @@
 {% if request.user.is_anonymous is not True%}
     <ul>
         <li>Olá, {{ request.session.nome_usuario }}</li>
-        <li><a href="contratos">Contratos</a></li>
-        <li><a href="cadastro">Editar Cadastro</a></li>
-        <li><a href="logout">Logout</a></li>
+        <li><a href="/contratos">Contratos</a></li>
+        <li><a href="/cadastro">Editar Cadastro</a></li>
+        <li><a href="/logout">Logout</a></li>
 
     </ul>
 
 
 {% else %}
     <ul>
-        <li><a href="login">Login</a></li>
+        <li><a href="/login">Login</a></li>
     </ul>
 {% endif %}
 

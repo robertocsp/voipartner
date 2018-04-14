@@ -7,14 +7,14 @@
         <li>Valor de cada cota: {{ contrato.valor_cota }}</li>
         <li>Total investido: {{ contrato.valor_contratado|floatformat:2 }}</li>
     </ul>
-        {% if contrato.lucro_acumulado %}
+        {% if contrato.lista_lucro_por_mes %}
         <h2>Lucro</h2>
         <ul>
-            {% for lucro in contrato.lucro_acumulado %}
+            {% for lucro in contrato.lista_lucro_por_mes %}
                 <li>Data: {{ lucro.dt_lucro }}</li>
-                <li>Valor do lucro: {{ lucro.vl_lucro }}</li>
-                <li>Lucro acumulado ate o momento: {{ lucro.vl_lucro_acumulado }}</li>
-                <li>Valor acumulado ate o momento: {{ lucro.vl_acumulado }}</li>
+                <li>Valor do lucro: {{ lucro.vl_lucro|floatformat:2 }}</li>
+                <li>Lucro acumulado: {{ lucro.vl_lucro_acumulado|floatformat:2 }}</li>
+                <li>Valor acumulado: {{ lucro.vl_acumulado|floatformat:2 }}</li>
                 <li>-------------------------</li>
             {% endfor %}
         </ul>

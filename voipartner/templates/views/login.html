@@ -1,22 +1,43 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 
 {% block content %}
-  <h2>Login</h2>
-<form method="post">
-    {% csrf_token %}
-    {% for field in form %}
-      <p>
-        {{ field.label_tag }}<br>
-        {{ field }}
-        {% if field.help_text %}
-          <small style="color: grey">{{ field.help_text }}</small>
-        {% endif %}
-        {% for error in field.errors %}
-          <p style="color: red">{{ error }}</p>
-        {% endfor %}
-      </p>
-    {% endfor %}
-    <button type="submit">Login</button>
-  </form>
-  <div><div><a href="cadastro">Realizar Cadastro</a> </div></div>
+<body class="bg-dark">
+  <div class="container">
+    <div class="card card-login mx-auto mt-5">
+      <div class="card-header">Login</div>
+      <div class="card-body">
+        <form method="post">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="{{ form.username.id_for_label }} ">Email</label>
+            {{ form.username|add_class:"form-control" }}
+
+          </div>
+          <div class="form-group">
+            <label for="{{ form.password.id_for_label }} ">Email</label>
+            {{ form.password|add_class:"form-control" }}
+          </div>
+          <div class="form-group">
+            <div class="form-check">
+              <label class="form-check-label">
+                <input class="form-check-input" type="checkbox"> Lembrar senha</label>
+            </div>
+          </div>
+          <button class="btn btn-primary btn-block" type="submit">Login</button>
+        </form>
+        <div class="text-center">
+          <a class="d-block small mt-3" href="/cadastro">Realizar cadastro</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <!-- Core plugin JavaScript-->
+  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+</body>
+
+</html>
 {% endblock %}

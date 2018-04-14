@@ -133,7 +133,7 @@ def contrato_pendente_pagamento(request, contrato_id):
             #instance = form.save(commit=False)
 
 
-            cotas_contratadas = form.cleaned_data.get('cotas_contratadas')  # o email é o username
+            cotas_contratadas = form.cleaned_data.get('cotas_contratadas')
             #contrato.cotas_contratadas = cotas_contratadas
 
 

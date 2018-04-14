@@ -10,7 +10,13 @@
     <h2>Contratos em vigor</h2>
     <ul>
     {% for contrato in contratos_em_vigor %}
-        <li><a href="contratos/{{ contrato.id }}">{{ contrato.no_contrato }}</a></li>
+        <li>
+            <a href="contratos/{{ contrato.id }}">{{ contrato.no_contrato }}</a>
+            <ul>
+                <li>Total de lucro até o momento: $ {{ contrato.lucro_acumulado|floatformat:2 }}</li>
+                <li>Valor acumulado até o momento: $ {{ contrato.valor_acumulado|floatformat:2 }}</li>
+            </ul>
+        </li>
     {% endfor %}
     </ul>
 {% else %}

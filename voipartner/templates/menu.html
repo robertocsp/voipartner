@@ -1,9 +1,8 @@
-<div id="menu">
+<div id="menu-superior">
 
 {% if request.user.is_anonymous is not True%}
     <ul>
         <li>Olá, {{ request.session.nome_usuario }}</li>
-        <li><a href="/contratos">Contratos</a></li>
         <li><a href="/cadastro">Editar Cadastro</a></li>
         <li><a href="/logout">Logout</a></li>
 

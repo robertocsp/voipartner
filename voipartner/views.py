@@ -106,6 +106,41 @@ def contratos_usuario(request):
 
     return render(request, "views/contratos_usuario.html", context)
 
+@login_required(login_url='/login')
+def contratos_pendentes(request):
+    usuario = Usuario.objects.get(user=request.user)
+
+    contratos_pendentes = Contrato.objects.filter(Q(usuario=usuario) & (Q(status=1) | Q(status=2) | Q(status=3)))
+    context = {
+        'usuario': usuario,
+        'contratos_pendentes': contratos_pendentes,
+    }
+
+    return render(request, "views/contratos_pendentes.html", context)
+
+@login_required(login_url='/login')
+def contratos_em_vigor(request):
+    usuario = Usuario.objects.get(user=request.user)
+
+    contratos_em_vigor = Contrato.objects.filter(usuario=usuario,status=4)
+    context = {
+        'usuario': usuario,
+        'contratos_em_vigor': contratos_em_vigor,
+    }
+
+    return render(request, "views/contratos_em_vigor.html", context)
+
+@login_required(login_url='/login')
+def contratos_encerrados(request):
+    usuario = Usuario.objects.get(user=request.user)
+
+    contratos_encerrados = Contrato.objects.filter(usuario=usuario,status=5)
+    context = {
+        'usuario': usuario,
+        'contratos_encerrados': contratos_encerrados,
+    }
+
+    return render(request, "views/contratos_encerrados.html", context)
 
 @login_required(login_url='/login')
 def contrato(request, contrato_id):

@@ -29,6 +29,9 @@ urlpatterns = [
     path('login', views.my_login, name='my_login'),
     path('logout', views.my_logout, name='my_logout'),
     path('contratos', views.contratos_usuario, name='contratos_usuario'),
+    path('contratos-pendentes', views.contratos_pendentes, name='contratos_pendentes'),
+    path('contratos-em-vigor', views.contratos_em_vigor, name='contratos_em_vigor'),
+    path('contratos-encerrados', views.contratos_encerrados, name='contratos_encerrados'),
     path('contratos/<int:contrato_id>', views.contrato, name='contrato'),
     path('contratos/<int:contrato_id>/pagamento-pendente', views.contrato_pendente_pagamento, name='contrato-pendente-pagamento'),
 

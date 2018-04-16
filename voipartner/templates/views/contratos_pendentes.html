@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Contratos do usuário - Voi Partner{% endblock %}
+{% block content %}
+
+{% include "../menu.html" %}
+{% include "../menu_lateral.html" %}
+
+{% if contratos_pendentes %}
+    <h2>Contratos pendentes</h2>
+    <ul>
+    {% for contrato in contratos_pendentes %}
+        <li><a href="contratos/{{ contrato.id }}">{{ contrato.no_contrato }} - status: {{ contrato.get_status_display }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Usuário não possui contratos com alguma pendência</p>
+{% endif %}
+
+
+
+{% endblock %}

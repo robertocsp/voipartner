@@ -37,8 +37,8 @@ class Contrato(models.Model):
     data_inicio_vigencia = models.DateField(blank=True, null=True)
     data_fim_adesao = models.DateField(blank=True, null=True)  # 90 dias apos o inicio da vigencia
     data_renovacao_automatica = models.DateField(blank=True, null=True)  # 6 meses após o início da vigência
+    data_encerramento = models.DateField(blank=True, null=True)
     dia_aniversario = models.IntegerField(null=True, blank=True)
-    taxa_lucro_prefixado = models.IntegerField(null=True)
     comprovante_deposito = models.FileField(null=True, blank=True)
     link_contrato = models.TextField(null=True, blank=True)
     contrato_assinado = models.FileField(null=True, blank=True)
@@ -58,6 +58,7 @@ class Contrato(models.Model):
         ('2', 'aguardando compensação'), #usuário fez upload do comprovante do pagamento.
         ('3', 'aguardando assinatura do contrato'), #após confirmação do pagamento elaboramos o contrato e enviamos ASSINADO para o cliente assinar via Docusign
         ('4', 'contrato em vigor'), #após assinatura do contrato, ele entra em vigor
+        ('5', 'contrato encerrado'),  # após assinatura do contrato, ele entra em vigor
 
     )
     status = models.CharField(

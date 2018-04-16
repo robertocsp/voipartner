@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Contratos do usuário - Voi Partner{% endblock %}
+{% block content %}
+
+{% include "../menu.html" %}
+{% include "../menu_lateral.html" %}
+
+
+{% if contratos_em_vigor %}
+    <h2>Contratos em vigor</h2>
+    <ul>
+    {% for contrato in contratos_em_vigor %}
+        <li>
+            <a href="contratos/{{ contrato.id }}">{{ contrato.no_contrato }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>usuario não possui contratos em vigor</p>
+{% endif %}
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,20 @@
+<div id="menu-lateral">
+
+{% if request.user.is_anonymous is not True%}
+    <ul>
+        <li><a href="#">Dashboard</a></li>
+        <li>
+            <a href="#">Contratos</a>
+            <ul>
+                <li><a href="/contratos-em-vigor">Contratos em Vigor</a></li>
+                <li><a href="/contratos-pendentes">Contratos Pendentes</a></li>
+                <li><a href="/contratos-encerrados">Contratos Encerrados</a></li>
+            </ul>
+        </li>
+
+
+    </ul>
+
+{% endif %}
+
+</div>

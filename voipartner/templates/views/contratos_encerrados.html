@@ -9,7 +9,7 @@
     <h2>Contratos encerrados</h2>
     <ul>
     {% for contrato in contratos_encerrados %}
-        <li><a href="contratos/{{ contrato.id }}">{{ contrato.no_contrato }}</a></li>
+        <li><a href="contratos-encerrados/{{ contrato.id }}">{{ contrato.no_contrato }}</a></li>
     {% endfor %}
     </ul>
 {% else %}

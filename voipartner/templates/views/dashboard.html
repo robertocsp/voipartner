@@ -6,4 +6,20 @@
 {% include "../menu_lateral.html" %}
 
 
+<div>Contratos em vigor - {{ usuario.no_contratos_em_vigor }}</div>
+<div>Contratos pendentes - {{ usuario.no_contratos_pendentes }}</div>
+<div>Contratos encerrados - {{ usuario.no_contratos_encerrados }}</div>
+
+<div>Gráfico lucratividade dos últimos 6 meses</div>
+<ul>
+{% for lucratividade in usuario.lucratividade_ultimos_meses %}
+    <li>
+        {{ lucratividade.dt_lucro|date:"M Y" }}
+        {{ lucratividade.vl_lucro|floatformat:2}}
+    </li>
+{% endfor %}
+</ul>
+
+<div>Lucratividade total até o momento: {{ usuario.lucratividade_total|floatformat:2 }}</div>
+
 {% endblock %}

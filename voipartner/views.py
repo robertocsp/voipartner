@@ -220,7 +220,12 @@ def contrato_pendente_pagamento(request, contrato_id):
 
 @login_required(login_url='/login')
 def dashboard(request):
-    return render(request, "views/dashboard.html" )
+    usuario = Usuario.get_usuario_by_user(request.user)
+    context = {
+        'usuario': usuario,
+
+    }
+    return render(request, "views/dashboard.html", context )
 
 
 def testeForm(request):

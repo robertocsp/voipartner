@@ -179,6 +179,17 @@ def contrato_em_vigor_detalhe(request, contrato_id):
 
     return render(request, "views/contrato_em_vigor_detalhe.html", context)
 
+def contrato_encerrado_detalhe(request, contrato_id):
+    usuario = Usuario.objects.get(user=request.user)
+    contrato = Contrato.objects.get(pk=contrato_id)
+    contratos_encerrados = Contrato.objects.filter(usuario=usuario, status=5)
+    context = {
+        'usuario': usuario,
+        'contrato': contrato,
+        'contratos_encerrados': contratos_encerrados,
+    }
+
+    return render(request, "views/contrato_encerrado_detalhe.html", context)
 
 @login_required(login_url='/login')
 def contrato_pendente_pagamento(request, contrato_id):
@@ -206,6 +217,11 @@ def contrato_pendente_pagamento(request, contrato_id):
 
     else:
         return HttpResponse("acesso não permitido")
+
+@login_required(login_url='/login')
+def dashboard(request):
+    return render(request, "views/dashboard.html" )
+
 
 def testeForm(request):
     if request.method == 'POST':

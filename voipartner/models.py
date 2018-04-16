@@ -82,7 +82,13 @@ class Contrato(models.Model):
             vl_lucro_acumulado = None
             vl_acumulado = None
 
-        hoje = datetime.date.today()
+        hoje = None
+
+        if self.status is '4':
+            hoje = datetime.date.today()
+        elif self.status is '5':
+            hoje = self.data_encerramento
+
         delta = hoje - self.data_inicio_vigencia
 
         lucro = Lucro()
@@ -113,7 +119,13 @@ class Contrato(models.Model):
 
         vl_acumulado = self.valor_contratado()
 
-        hoje = datetime.date.today()
+        hoje = None
+
+        if self.status is '4':
+            hoje = datetime.date.today()
+        elif self.status is '5':
+            hoje = self.data_encerramento
+
         delta = hoje - self.data_inicio_vigencia
 
         for i in range(delta.days):
@@ -129,7 +141,13 @@ class Contrato(models.Model):
         vl_acumulado = self.valor_contratado()
         lucro_acumulado = 0
 
-        hoje = datetime.date.today()
+        hoje = None
+
+        if self.status is '4':
+            hoje = datetime.date.today()
+        elif self.status is '5':
+            hoje = self.data_encerramento
+
         delta = hoje - self.data_inicio_vigencia
 
         for i in range(delta.days):

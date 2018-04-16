@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Contrato no: {{ contrato.no_contrato }} - Voi Partner{% endblock %}
+{% block content %}
+{% load static %}
+
+{% include "../menu.html" %}
+{% include "../menu_lateral.html" %}
+
+<h2>Contratos encerrados</h2>
+{% if contratos_encerrados %}
+    <select onchange="if (this.value) window.location.href=this.value">
+        <option value="">Selecione um contrato</option>
+        {% for contrato_select in contratos_encerrados %}
+        <option value="/contratos-em-vigor/{{ contrato_select.id }}" {% if contrato_select.id == contrato.id %} selected {% endif %}>{{ contrato_select.no_contrato }}</option>
+    {% endfor %}
+    </select>
+{% else %}
+    <p>Usuário não possui contratos encerrados</p>
+{% endif %}
+
+{% if contrato %}
+
+    {% if contrato.status == '5' %}
+    <h2>Contrato Encerrado</h2>
+        {% include "../contrato_encerrado.html" %}
+    {% endif %}
+
+
+{% else %}
+    <p>contrato não existente</p>
+{% endif %}
+
+
+{% endblock %}

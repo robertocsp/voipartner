@@ -5,22 +5,16 @@
 {% include "../menu.html" %}
 {% include "../menu_lateral.html" %}
 
-
+<h2>Contratos em vigor</h2>
 {% if contratos_em_vigor %}
-    <h2>Contratos em vigor</h2>
-    <ul>
-    {% for contrato in contratos_em_vigor %}
-        <li>
-            <a href="contratos/{{ contrato.id }}">{{ contrato.no_contrato }}</a>
-        </li>
+    <select onchange="if (this.value) window.location.href=this.value">
+        <option value="">Selecione um contrato</option>
+        {% for contrato_select in contratos_em_vigor %}
+        <option value="/contratos-em-vigor/{{ contrato_select.id }}">{{ contrato_select.no_contrato }}</option>
     {% endfor %}
-    </ul>
+    </select>
 {% else %}
-    <p>usuario não possui contratos em vigor</p>
+    <p>Usuário não possui contratos em vigor</p>
 {% endif %}
-
-
-
-
 
 {% endblock %}

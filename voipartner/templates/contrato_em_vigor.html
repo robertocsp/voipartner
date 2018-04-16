@@ -1,23 +1,40 @@
-<ul>
+{% load static %}
+    <ul>
         <li>No. Contrato: {{ contrato.no_contrato }}</li>
-        <li>Status: {{ contrato.get_status_display }}</li>
         <li>Início vigência: {{ contrato.data_inicio_vigencia }}</li>
         <li>Dia Aniversário do contrato: {{ contrato.dia_aniversario }}</li>
         <li>Quantidade de cotas contratadas: {{ contrato.cotas_contratadas }}</li>
         <li>Valor de cada cota: {{ contrato.valor_cota }}</li>
-        <li>Total investido: {{ contrato.valor_contratado|floatformat:2 }}</li>
+        <li>Total inicial investido: {{ contrato.valor_contratado|floatformat:2 }}</li>
+        <li>Contrato: <a href="{{ contrato.contrato_assinado.url }}">{{ contrato.contrato_assinado }}</a></li>
     </ul>
         {% if contrato.lista_lucro_por_mes %}
         <h2>Lucro</h2>
         <ul>
-            {% for lucro in contrato.lista_lucro_por_mes %}
-                <li>Data: {{ lucro.dt_lucro }}</li>
-                <li>Valor do lucro: {{ lucro.vl_lucro|floatformat:2 }}</li>
-                <li>Lucro acumulado: {{ lucro.vl_lucro_acumulado|floatformat:2 }}</li>
-                <li>Valor acumulado: {{ lucro.vl_acumulado|floatformat:2 }}</li>
-                <li>-------------------------</li>
-            {% endfor %}
+            <li>Total de lucro até o momento: $ {{ contrato.lucro_acumulado|floatformat:2 }}</li>
+            <li>Valor acumulado até o momento: $ {{ contrato.valor_acumulado|floatformat:2 }}</li>
         </ul>
+        <table>
+            <tr>
+                <th>Data - dia aniversário</th>
+                <th>Lucro no mês</th>
+                <th>Lucro acumulado</th>
+                <th>Total acumulado</th>
+            </tr>
+            {% for lucro in contrato.lista_lucro_por_mes %}
+            <tr>
+                <td>{{ lucro.dt_lucro }}</td>
+                <td>{{ lucro.vl_lucro|floatformat:2 }}</td>
+                <td>{{ lucro.vl_lucro_acumulado|floatformat:2 }}</td>
+                <td>{{ lucro.vl_acumulado|floatformat:2 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
         {% else %}
             <p>usuario ainda não possui lucro acumulado neste contrato</p>
         {% endif %}
+    <div>
+
+        <img src="{% static 'grafico-exemplo.png' %}" alt="grafico exemplo" />
+        Grafico de barras com os últimos 6 meses, os dados pode vir de um JSON que posso gerar
+    </div>

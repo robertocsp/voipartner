@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Contrato no: {{ contrato.no_contrato }} - Voi Partner{% endblock %}
+{% block content %}
+{% load static %}
+
+{% include "../menu.html" %}
+{% include "../menu_lateral.html" %}
+
+<h2>Contratos pendentes</h2>
+{% if contratos_pendentes %}
+    <select onchange="if (this.value) window.location.href=this.value">
+        <option value="">Selecione um contrato</option>
+        {% for contrato_select in contratos_pendentes %}
+        <option value="/contratos-pendentes/{{ contrato_select.id }}" {% if contrato_select.id == contrato.id %} selected {% endif %}>{{ contrato_select.no_contrato }} - status: {{ contrato_select.get_status_display }}</option>
+    {% endfor %}
+    </select>
+{% else %}
+    <p>Usuário não possui contratos com alguma pendência</p>
+{% endif %}
+
+{% if contrato %}
+
+    {% if contrato.status == '1' %}
+    <h2>Contrato pendente de pagamento</h2>
+        {% include "../contrato_pendente_pagamento.html" %}
+    {% endif %}
+
+    {% if contrato.status == '2' %}
+    <h2>Contrato aguardando compensação</h2>
+        {% include "../contrato_aguardando_compensacao.html" %}
+    {% endif %}
+
+    {% if contrato.status == '3' %}
+    <h2>Contrato pendente de assinatura</h2>
+        {% include "../contrato_pendente_assinatura.html" %}
+    {% endif %}
+
+
+
+{% else %}
+    <p>contrato não existente</p>
+{% endif %}
+
+
+{% endblock %}

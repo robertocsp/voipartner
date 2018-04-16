@@ -1,5 +1,7 @@
 <div id="menu-superior">
 
+    <div><a href="#">Fale conosco</a></div>
+
 {% if request.user.is_anonymous is not True%}
     <ul>
         <li>Olá, {{ request.session.nome_usuario }}</li>
@@ -10,9 +12,7 @@
 
 
 {% else %}
-    <ul>
-        <li><a href="/login">Login</a></li>
-    </ul>
+    <div><li><a href="/login">Login</a></div>
 {% endif %}
 
 </div>

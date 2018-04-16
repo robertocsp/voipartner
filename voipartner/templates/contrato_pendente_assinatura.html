@@ -1,3 +1,15 @@
+<div>
+    <p>
+        Esta é a última etapa do processo. Acesse o seu contrato clicando no lik abaixo e faça a assinatura eletronicamente.
+
+    </p>
+    <p>
+        Assim que você finalizar a assinatura do contrato, seremos notificados e seu contrato entrará em vigor.
+
+    </p>
+
+</div>
+
 <ul>
         <li>No. Contrato: {{ contrato.no_contrato }}</li>
         <li>Status: {{ contrato.get_status_display }}</li>
@@ -5,7 +17,7 @@
         <li>Total de cotas adquiridas: {{ contrato.cotas_contratadas }}</li>
         <li>Comprovante de depósito: <a href="{{ contrato.comprovante_deposito.url }}">{{ contrato.comprovante_deposito }}</a> </li>
         <li>Valor total: {{ contrato.valor_contratado }}</li>
-        <li>Link contrato: <a href="{{ contrato.link_contrato }}" target="_blank">Clique para acessar o seu contrato</a></li>
+    <li><strong>Link contrato:</strong> <a href="{{ contrato.link_contrato }}" target="_blank">Clique para acessar o seu contrato</a></li>
 
 
 </ul>

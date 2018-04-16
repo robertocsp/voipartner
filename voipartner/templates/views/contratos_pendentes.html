@@ -5,13 +5,14 @@
 {% include "../menu.html" %}
 {% include "../menu_lateral.html" %}
 
+<h2>Contratos pendentes</h2>
 {% if contratos_pendentes %}
-    <h2>Contratos pendentes</h2>
-    <ul>
-    {% for contrato in contratos_pendentes %}
-        <li><a href="contratos/{{ contrato.id }}">{{ contrato.no_contrato }} - status: {{ contrato.get_status_display }}</a></li>
+    <select onchange="if (this.value) window.location.href=this.value">
+        <option value="">Selecione um contrato</option>
+        {% for contrato in contratos_pendentes %}
+        <option value="/contratos-pendentes/{{ contrato.id }}">{{ contrato.no_contrato }} - status: {{ contrato.get_status_display }}</option>
     {% endfor %}
-    </ul>
+    </select>
 {% else %}
     <p>Usuário não possui contratos com alguma pendência</p>
 {% endif %}

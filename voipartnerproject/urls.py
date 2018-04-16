@@ -32,8 +32,10 @@ urlpatterns = [
     path('contratos-pendentes', views.contratos_pendentes, name='contratos_pendentes'),
     path('contratos-em-vigor', views.contratos_em_vigor, name='contratos_em_vigor'),
     path('contratos-encerrados', views.contratos_encerrados, name='contratos_encerrados'),
+    path('contratos-pendentes/<int:contrato_id>', views.contrato_pendente_detalhe, name='contrato_pendente_detalhe'),
+    path('contratos-em-vigor/<int:contrato_id>', views.contrato_em_vigor_detalhe, name='contrato_em_vigor_detalhe'),
     path('contratos/<int:contrato_id>', views.contrato, name='contrato'),
-    path('contratos/<int:contrato_id>/pagamento-pendente', views.contrato_pendente_pagamento, name='contrato-pendente-pagamento'),
+    path('contratos-pendentes/<int:contrato_id>/pagamento-pendente', views.contrato_pendente_pagamento, name='contrato-pendente-pagamento'),
 
 ]
 

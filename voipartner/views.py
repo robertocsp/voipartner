@@ -153,6 +153,32 @@ def contrato(request, contrato_id):
 
     return render(request, "views/contrato.html", context)
 
+@login_required(login_url='/login')
+def contrato_pendente_detalhe(request, contrato_id):
+    usuario = Usuario.objects.get(user=request.user)
+    contrato = Contrato.objects.get(pk=contrato_id)
+    contratos_pendentes = Contrato.objects.filter(Q(usuario=usuario) & (Q(status=1) | Q(status=2) | Q(status=3)))
+    context = {
+        'usuario': usuario,
+        'contrato' : contrato,
+        'contratos_pendentes': contratos_pendentes,
+    }
+
+    return render(request, "views/contrato_pendente_detalhe.html", context)
+
+@login_required(login_url='/login')
+def contrato_em_vigor_detalhe(request, contrato_id):
+    usuario = Usuario.objects.get(user=request.user)
+    contrato = Contrato.objects.get(pk=contrato_id)
+    contratos_em_vigor = Contrato.objects.filter(usuario=usuario, status=4)
+    context = {
+        'usuario': usuario,
+        'contrato': contrato,
+        'contratos_em_vigor': contratos_em_vigor,
+    }
+
+    return render(request, "views/contrato_em_vigor_detalhe.html", context)
+
 
 @login_required(login_url='/login')
 def contrato_pendente_pagamento(request, contrato_id):
@@ -176,10 +202,10 @@ def contrato_pendente_pagamento(request, contrato_id):
             #form.save(username, raw_password)
         else:
             return HttpResponse("forulario nao foi valido")
-        return HttpResponse("Cotas contratadas: " + str(cotas_contratadas))
+        return redirect('contrato_pendente_detalhe', contrato_id=contrato.id)
 
     else:
-        return HttpResponse("metodo get nao pode")
+        return HttpResponse("acesso não permitido")
 
 def testeForm(request):
     if request.method == 'POST':

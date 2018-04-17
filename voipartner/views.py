@@ -9,7 +9,8 @@ from django.http import HttpResponse
 import os
 from django.conf import settings
 from django.contrib import messages
-
+from django.http import JsonResponse
+from dateutil.relativedelta import relativedelta
 
 # Create your views here.
 
@@ -245,3 +246,26 @@ def testeForm(request):
 
     return render(request, 'views/testeform.html', {'form': form})
 
+def simulador_lucratividade(request):
+    #máximo 24 meses para a simulação - sugestão
+
+    valor_investido = request.GET.get("valor_investido")
+
+
+    vp = float(valor_investido)
+    no_meses = request.GET.get("no_meses")
+    juros = 0.05 #5% ao mes conforme nossa previsão
+
+    data = {}
+
+    hoje = datetime.datetime.today()
+
+    for i in range(int(no_meses)):
+        hoje = hoje + relativedelta(months=1)
+        vp = vp + (vp * juros)
+        data[hoje.strftime('%b, %Y')] = format(vp, '.2f')
+
+
+    data['mensagem'] = 'Você terá após de ' + no_meses + ' meses, um total de U$ ' + format(vp, '.2f')
+
+    return JsonResponse(data)

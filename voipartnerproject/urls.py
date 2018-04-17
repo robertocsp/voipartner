@@ -38,6 +38,7 @@ urlpatterns = [
     path('contratos/<int:contrato_id>', views.contrato, name='contrato'),
     path('contratos-pendentes/<int:contrato_id>/pagamento-pendente', views.contrato_pendente_pagamento, name='contrato-pendente-pagamento'),
     path('dashboard', views.dashboard, name='dashboard'),
+    path('ajax/simulador-lucratividade', views.simulador_lucratividade, name='simulador_lucratividade'),
 
 ]
 

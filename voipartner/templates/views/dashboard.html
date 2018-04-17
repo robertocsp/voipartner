@@ -1,6 +1,31 @@
-{% extends "base.html" %}
-{% block title %}Dashboard - Voi Partner{% endblock %}
-{% block content %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script>
+$(document).ready(function(){
+    $("button").click(function(){
+       $.ajax({
+        url: '/ajax/simulador-lucratividade',
+        data: {
+          'valor_investido': document.getElementById('valor-investimento').value,
+          'no_meses': document.getElementById('no-meses').value,
+        },
+        dataType: 'json',
+        success: function (data) {
+
+            var div = document.getElementById('grafico-lucratividade');
+            div.innerHTML = '<ul><li>' + data.mensagem + '</li></ul>';
+
+        }
+      });
+    });
+});
+
+</script>
+</head>
+<body>
 
 {% include "../menu.html" %}
 {% include "../menu_lateral.html" %}
@@ -22,4 +47,23 @@
 
 <div>Lucratividade total até o momento: {{ usuario.lucratividade_total|floatformat:2 }}</div>
 
-{% endblock %}
+<div>
+    <div>
+        <label>Valor investimento</label>
+        <input type="text" id="valor-investimento" />
+    </div>
+    <div>
+        <label>Durante quantos meses</label>
+        <input type="text" id="no-meses" />
+    </div>
+    <button>Calcular lucratividade</button>
+    <div id="grafico-lucratividade">
+
+    </div>
+</div>
+
+
+
+</body>
+</html>
+

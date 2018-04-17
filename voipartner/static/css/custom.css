@@ -1,0 +1,72 @@
+.navbar-brand img {
+    margin: -7px 0 0 0;
+    width: 55px;
+    display: block;
+    float: left;
+}
+
+#mainNav .navbar-brand {
+    margin-top: 3px;
+}
+
+.logo-services.fr {
+    margin-left: 0px;
+}
+
+.logo-services {
+    display: block;
+    margin: 4px 0 0 2px;
+    font-size: 17px;
+    font-weight: bold;
+    font-family: sans-serif;
+    float: left;
+}
+
+.navbar-shrink .logo-services{
+    color: #DC3438;
+}
+
+.navbar-shrink .logo-services.fr{
+    color: #3C3E77;
+}
+
+.top-content{
+    width: 800px;
+    position: absolute;
+    right: 0;
+    background: rgba(220,52,56, .8);
+    top: 205px;
+    padding: 40px 0;
+}
+
+.bg-blue{
+    background: #3C3E77 !important;
+}
+
+.bg-white{
+    background: #fff !important;
+}
+
+.bg-white .text-faded {
+    color: #555;
+}
+
+.bg-white .text-white {
+    color: #555!important;
+}
+
+.bg-white hr.light {
+    border-color: #555;
+}
+
+.bg-dark hr {
+    border-color: #fff;
+}
+
+.bg-dark .text-primary, .bg-primary .text-primary{
+    color: #fff !important;
+}
+
+.text-big{
+    font-size: 37px;
+}

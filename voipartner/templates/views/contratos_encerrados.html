@@ -11,7 +11,7 @@
         <option value="">Selecione um contrato</option>
         {% for contrato_select in contratos_encerrados %}
         <option value="/contratos-encerrados/{{ contrato_select.id }}">{{ contrato_select.no_contrato }}</option>
-    {% endfor %}
+        {% endfor %}
     </select>
 {% else %}
     <p>Usuário não possui contratos em vigor</p>

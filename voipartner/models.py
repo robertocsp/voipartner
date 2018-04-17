@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 import datetime
 from django.core.mail import send_mail
+from django.db.models import Q
 
 
 # Create your models here.
@@ -30,6 +31,52 @@ class Usuario(models.Model):
     def get_usuario_by_user(user):
         usuario = Usuario.objects.get(user=user)
         return usuario
+
+    def no_contratos_em_vigor(self):
+        return self.contrato_set.filter(status='4').count()
+
+    def no_contratos_pendentes(self):
+        return self.contrato_set.filter(Q(status=1) | Q(status=2) | Q(status=3)).count()
+
+    def no_contratos_encerrados(self):
+        return self.contrato_set.filter(status='5').count()
+
+    def lucratividade_ultimos_meses(self):
+        class Lucro:
+            dt_lucro = None
+            vl_lucro = None
+            vl_lucro_acumulado = None
+            vl_acumulado = None
+
+        contratos_em_vigor_ou_encerrado = self.contrato_set.filter(Q(status='4') | Q(status='5'))
+        hoje = datetime.date.today()
+        lista_lucro = []
+
+        #ultimos 6 meses
+        for i in range(6):
+            hoje = hoje.replace(day=1)
+            lucro = Lucro()
+            lucro.vl_lucro = 0
+            lucro.dt_lucro = hoje
+            for contrato in contratos_em_vigor_ou_encerrado:
+                for lucro_for in contrato.lista_lucro_por_mes():
+                    if lucro_for.dt_lucro.month == hoje.month and lucro_for.dt_lucro.year == hoje.year:
+                        lucro.vl_lucro = lucro.vl_lucro + lucro_for.vl_lucro
+
+            lista_lucro.append(lucro)
+
+            hoje = hoje - datetime.timedelta(days=1)
+
+        return lista_lucro
+
+    def lucratividade_total(self):
+        contratos_em_vigor_ou_encerrado = self.contrato_set.filter(Q(status='4') | Q(status='5'))
+        lucratividade = 0
+        for contrato in contratos_em_vigor_ou_encerrado:
+            lucratividade = lucratividade + contrato.lucro_acumulado()
+
+        return lucratividade
+
 
 class Contrato(models.Model):
     no_contrato = models.CharField(max_length=10)
@@ -73,6 +120,7 @@ class Contrato(models.Model):
     def valor_contratado(self):
         # if self.cotas_contratadas is not None & self.valor_cota is not None:
         return self.cotas_contratadas * self.valor_cota
+
 
     def lista_lucro_por_mes(self):
 

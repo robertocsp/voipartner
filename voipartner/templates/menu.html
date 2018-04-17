@@ -1,18 +1,37 @@
 <div id="menu-superior">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">VOI Partner</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-    <div><a href="#">Fale conosco</a></div>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto navbar-right">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Fale Conosco</a>
+          </li>
+          <li class="nav-item dropdown">
+            {% if request.user.is_anonymous is not True%}
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Olá, {{ request.session.nome_usuario }}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="/cadastro">Editar cadastro</a>
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="/logout">Sair</a>
+                </div>
+               {% else %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="/login">Login</a>
+                  </li>
+            {% endif %}
+          </li>
+        </ul>
+      </div>
+    </nav>
 
-{% if request.user.is_anonymous is not True%}
-    <ul>
-        <li>Olá, {{ request.session.nome_usuario }}</li>
-        <li><a href="/cadastro">Editar Cadastro</a></li>
-        <li><a href="/logout">Logout</a></li>
-
-    </ul>
-
-
-{% else %}
-    <div><li><a href="/login">Login</a></div>
-{% endif %}
 
 </div>

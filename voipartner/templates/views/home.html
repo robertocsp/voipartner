@@ -1,37 +1,236 @@
 {% extends "base.html" %}
-{% block title %}Voi Partner{% endblock %}
+{% load static %}
+{% block title %}Voi Partner - Home{% endblock %}
+
+{% block header %}
+  <link href="{% static 'css/creative.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+  <link href="{% static 'css/custom.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
 
-{% include "../menu.html" %}
-{% include "../menu_lateral.html" %}
+<div class="home">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <a href="/" class="navbar-brand page-scroll">
+            <img src="/static/img/logo_sup.png">
+            <span class="logo-services fr">VOI </span><span class="logo-services">Partner</span>
+        </a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#">Fale Conosco</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#">Entrar</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#">Cadastre-se</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-<ul><strong>O que é a Voi Partner?</strong>
-    <li>
-        A Voi Partner é uma empresa que investe na compra e venda de produtos, utilizando a técnica de Online Arbitrage no mercado americano. Com vasta experiência, a equipe Voi Partner possui suas próprias contas em Market places, sobretudo Amazon. Estando situada em uma região de Tax Free nos Estados Unidos, a Voi Partner possui diversos canais de compra de produtos elegíveis para ser vendidos na Amazon. O resultado de todos estes fatores se traduz em um lucro médio de 35% ao mês em vendas.
-    </li>
-</ul>
-<ul><strong>Oportunidade de Negócio:</strong>
-    <li>
-        Sabendo que a performance de retorno dos investimentos no mercado financeiro está muito abaixo do desejado, resolvemos dar a oportunidade para que você possa investir em nossa loja, tendo um lucro mínimo garantido de 5% ao mês.
-    </li>
-</ul>
-<ul><strong>Como Funciona?</strong>
-    <li>
-        Realize seu cadastro <a href="/cadastro">clicando aqui;</a>
-    </li>
-    <li>
-        Seus dados serão analisados e assim que aprovado, você será notificado informando quantas cotas foram liberadas para sua aquisição.
-    </li>
-    <li>
-        A partir daí todo o processo será informado por email.
-    </li>
-</ul>
+    <header class="masthead text-center text-white d-flex">
+      <div class="top-content">
+        <div class="row">
+          <div class="col-lg-10 mx-auto">
+            <h1>
+              <strong class="text-uppercase">Voi Partner - </strong> Investimento seguro e inteligente</strong>
+            </h1>
+            <hr>
+          </div>
+          <div class="col-lg-8 mx-auto">
+            <p class="text-faded mb-5">Uma forma simples e rentável de investir o seu dinheiro. Faça parte do hall de parceiros. Não perca esta oportunidade!</p>
+            <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Veja como</a>
+            <a class="btn btn-primary btn-xl js-scroll-trigger" href="#about">Faça uma simulação agora</a>
+          </div>
+        </div>
+      </div>
+    </header>
 
-<ul><strong>Veja o gráfico com os nossos resultados</strong>
-    <li>
-        Gráfico com os resultados dos últimos 6 meses
-    </li>
-</ul>
+    <section class="bg-primary" id="about">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center">
+            <h2 class="section-heading text-white">Veja como a VOI Partner funciona!</h2>
+            <hr class="light my-4">
+            <p class="text-faded mb-4">A Voi Partner é uma empresa que investe na compra e venda de produtos, utilizando a técnica de Online Arbitrage no mercado americano. Com vasta experiência, a equipe Voi Partner possui suas próprias contas em Market places, sobretudo Amazon. Estando situada em uma região de Tax Free nos Estados Unidos, a Voi Partner possui diversos canais de compra de produtos elegíveis para ser vendidos na Amazon. O resultado de todos estes fatores se traduz em um lucro médio de 35% ao mês em vendas.</p>
+            <a class="btn btn-light btn-xl js-scroll-trigger" href="#">Cadastre-se Agora</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <section class="bg-primary bg-white" id="why">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6"><br />
+            <h2 class="section-heading text-white">Porque a Voi Partner!</h2>
+            <hr class="light my-4">
+            <p class="text-faded mb-4">Sabendo que a performance de retorno dos investimentos no mercado financeiro está muito abaixo do desejado, resolvemos dar a oportunidade para que você possa investir em nossa loja, tendo um lucro mínimo garantido de 5% ao mês.</p>
+            <a class="btn btn-primary btn-xl js-scroll-trigger" href="#">Assine Agora</a>
+          </div>
+          <div class="col-md-4">
+            <img src="/static/img/size-image.png" width="100%"/>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="bg-dark text-white">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading">Como ser nosso parceiro</h2>
+            <hr class="my-4">
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 text-center">
+            <div class="service-box mt-5 mx-auto">
+              <i class="fa fa-user-plus fa-4x text-primary mb-3 sr-icons"></i>
+              <h3 class="mb-3">Cadastro</h3>
+              <p class="text-muted mb-0">Realize seu cadastro <a href="/cadastro">clicando aqui.</a></p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 text-center">
+            <div class="service-box mt-5 mx-auto">
+              <i class="fa fa-4x fa-arrow-right text-primary mb-3 sr-icons"></i>
+              <h3 class="mb-3">Cotas</h3>
+              <p class="text-muted mb-0">Nos informe a quantidade de cotas que pretende adquirir.</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 text-center">
+            <div class="service-box mt-5 mx-auto">
+              <i class="fa fa-4x fa-arrow-right text-primary mb-3 sr-icons"></i>
+              <h3 class="mb-3">Analise do dados</h3>
+              <p class="text-muted mb-0">Seus dados serão analisados e assim que aprovado, você será notificado informando quantas cotas foram liberadas para sua aquisição.</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6 text-center">
+            <div class="service-box mt-5 mx-auto">
+              <i class="fa fa-4x fa-file text-primary mb-3 sr-icons"></i>
+              <h3 class="mb-3">Processo de assinatura</h3>
+              <p class="text-muted mb-0">A partir daí todo o processo será informado por email.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-primary bg-white" id="">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto text-center"><br><br>
+              <h2 class="section-heading">Faça uma simulação de investimento</h2>
+              <hr class="my-4">
+              <p class="mb-5">Veja abaixo simulações de investimento e retorno com a VOI Partner</p>
+            </div>
+          <div class="col-lg-8 mx-auto text-center">
+            <div class="row">
+              <div class="form-group col-lg-4">
+                <label for="inputcapital"><i class="fa fa-money"></i> Capital inicial Investido</label>
+                <select id="inputcapital" class="form-control">
+                  <option selected>Selecione...</option>
+                  <option>1 cota - $1,000.00</option>
+                  <option>2 cotas - $2,000.00</option>
+                  <option>3 cotas - $3,000.00</option>
+                  <option>4 cotas - $4,000.00</option>
+                  <option>5 cotas - $5,000.00</option>
+                  <option>6 cotas - $6,000.00</option>
+                  <option>7 cotas - $7,000.00</option>
+                  <option>8 cotas - $8,000.00</option>
+                  <option>9 cotas - $9,000.00</option>
+                  <option>10 cotas - $10,000.00</option>
+                  <option>11 cotas - $11,000.00</option>
+                  <option>12 cotas - $12,000.00</option>
+                </select>
+              </div>
+
+              <div class="form-group col-lg-4">
+                <label for="inputtempo"><i class="fa fa-calendar"></i> Quantidade de meses</label>
+                <select id="inputtempo" class="form-control">
+                  <option selected>Selecione...</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                  <option>9</option>
+                  <option>10</option>
+                  <option>11</option>
+                  <option>12</option>
+                </select>
+              </div>
+              <div class="form-group col-lg-4">
+                <label class="text-center"><i class="fa fa-chart"></i> Resultado<br> <span class="text-big">$6,605.00</span></label>
+              </div>
+            </div>
+            <br>
+            <canvas id="myChart" width="100%"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact"class="bg-primary">
+      <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center"><br><br>
+              <h2 class="section-heading text-white">Fale conosco</h2>
+              <hr class="light my-4">
+              <p class="mb-5 text-white text-primary">Caso tenha alguma dúvida, não exite em nos contactar</p>
+            </div>
+            <div class="col-lg-12 mr-auto text-center">
+              <i class="fa fa-envelope-o fa-3x mb-3 sr-contact text-primary"></i>
+              <p>
+                <a href="mailto:support@voipartner.com" class="text-primary">support@voipartner.com</a>
+              </p>
+            </div>
+        </div>
+      </div>
+    </section>
+</div>
 
 {% endblock %}
+
+{% block footer %}
+  <script src="{% static 'vendor/scrollreveal/scrollreveal.min.js' %}"></script>
+  <script src="{% static 'vendor/magnific-popup/jquery.magnific-popup.min.js' %}"></script>
+
+  <script src="{% static 'js/creative.js' %}"></script>
+
+  <script type="text/javascript">
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "julho"],
+            datasets: [{
+                label: "Simulação de 6 meses de investimento em dollares (Valor x Mês)",
+                backgroundColor: 'rgb(220,52,56)',
+                borderColor: 'rgb(60, 62, 119)',
+                data: [5000, 5250, 5525, 5810, 6120, 6345, 6605],
+            }]
+        },
+        options: {}
+    });
+  </script>
+{% endblock %}
+

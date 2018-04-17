@@ -247,7 +247,6 @@ def testeForm(request):
     return render(request, 'views/testeform.html', {'form': form})
 
 def simulador_lucratividade(request):
-    #máximo 24 meses para a simulação - sugestão
 
     valor_investido = request.GET.get("valor_investido")
 
